@@ -30,7 +30,7 @@ class MeasurementDTO implements JsonSerializable
 
     public function getId(): int
     {
-        return $this->id;
+        return $this->idUser;
     }
 
     public function setId($id): void
@@ -57,6 +57,18 @@ class MeasurementDTO implements JsonSerializable
     {
         $this->value = $value;
     }
+
+    public function getTimestamp()
+    {
+        return $this->timestamp;
+    }
+
+    public function setTimestamp($timestamp)
+    {
+        $this->timestamp = $timestamp;
+    }
+
+
 
     public function jsonSerialize()
     {

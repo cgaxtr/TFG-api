@@ -34,7 +34,7 @@ $app->group('/test', function ($app) {
             return $response->withJson($test);
         }else{
             $json = array(
-                'error' => 'Invalid id'
+                'error' => 'Invalid name'
             );
 
             return $response->withJson($json, 404);
@@ -44,17 +44,16 @@ $app->group('/test', function ($app) {
     $app->put('', function (Request $request, Response $response){
 
         $json = json_decode($request->getBody());
-        //print_r($json);
 
         $res = new \Response($json);
 
         if(Test::uploadResponseTest($res)){
-            $json = array('message' => 'test');
+            $json = array('message' => 'responses uploaded correctly');
 
            return $response->withJson($json,200);
         }
 
-        $result = array('error' => 'Invalid json content');
+        $result = array('message' => 'Invalid json content');
 
         return $response->withJson($result, 400);
     });

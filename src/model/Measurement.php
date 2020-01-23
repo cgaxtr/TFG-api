@@ -4,7 +4,7 @@ require_once __DIR__ . '/../config/DB.php';
 
 class Measurement
 {
-    /*
+
     public static function uploadMeasure(MeasurementDTO $measure){
         $conn = Db::getInstance()->getConnection();
 
@@ -13,9 +13,17 @@ class Measurement
         $stmt->bindValue(":id", $measure->getId(),PDO::PARAM_INT);
         $stmt->bindValue(":type", $measure->getType(),PDO::PARAM_STR);
         $stmt->bindValue(":value", $measure->getValue(),PDO::PARAM_INT);
-        $stmt->bindValue(":date", $measure,PDO::PARAM_INT);
+        $stmt->bindValue(":date", date("Y-m-d H:i:s", $measure->getTimestamp()));
+
+        $stmt->execute();
+
+        if ($stmt->rowCount() == 0){
+            return false;
+        }else{
+            return true;
+        }
     }
-    */
+
 
     public static function getMeasure($idUser, $type){
         $conn = Db::getInstance()->getConnection();

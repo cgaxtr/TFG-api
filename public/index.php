@@ -8,13 +8,9 @@ require __DIR__ . '/../src/middleware/JWTMiddleware.php';
 $app = new \Slim\App;
 
 
-$app->get('/test', function (Request $request, Response $response, array $args) {
-    $json = array(
-        'test' => 'prueba'
-    );
-
-    return $response->withJson($json);
-})->add(new JWTMiddleware());
+$app->get('/ping', function (Request $request, Response $response, array $args) {
+    return $response->withHeader('Content-Type', 'text/plain')->write('pong');
+});
 
 
 $app->group('/api', function () use ($app) {
@@ -28,7 +24,7 @@ $app->group('/api', function () use ($app) {
     //Ruta para manejar las mediciones
     require __DIR__ . '/../src/routes/api/measurements/measurements.php';
 
-});
+})->add(new JWTMiddleware());
 
 $app->group('/auth', function () use ($app) {
 

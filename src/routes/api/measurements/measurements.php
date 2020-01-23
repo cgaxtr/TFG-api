@@ -35,20 +35,37 @@ $app->group('/measurement', function ($app) {
 
         $json = json_decode($request->getBody());
 
-        echo "post heartrate";
+        $measure = new MeasurementDTO($json->{'idUser'}, "HEARTRATE", $json->{'value'}, $json->{'timestamp'});
 
-        return $response;
+        if(Measurement::uploadMeasure($measure)){
+            $json = [
+                'message' => "Data stored correctly"
+            ];
+            return $response->withJson($json);
+        }else{
+            $json = [
+                'error' => "Error saving heart rate data"
+            ];
+            return $response->withJson($json);
+        }
     });
 
     $app->post('/steps', function (Request $request, Response $response) {
 
         $json = json_decode($request->getBody());
 
-        //public function __construct($id, $idUser, $type, $value, $timestamp)
-        //$measure = new MeasurementDTO();
+        $measure = new MeasurementDTO($json->{'idUser'}, "STEPS", $json->{'value'}, $json->{'timestamp'});
 
-
-
-        return $response;
+        if(Measurement::uploadMeasure($measure)){
+            $json = [
+                'message' => "Data stored correctly"
+            ];
+            return $response->withJson($json);
+        }else{
+            $json = [
+                'error' => "Error saving heart rate data"
+            ];
+            return $response->withJson($json);
+        }
     });
 });

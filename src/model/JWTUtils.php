@@ -14,7 +14,7 @@ class JWTUtils
         $jwt = explode(" ", $token);
 
         if ($jwt[0] != "Bearer" || count($jwt) != 2){
-            throw new InvalidTokenException("bad formed token ");
+            throw new InvalidTokenException("bad formed header ");
         }
 
         $payload = null;
